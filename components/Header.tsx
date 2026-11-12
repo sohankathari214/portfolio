@@ -1,0 +1,4 @@
+import Link from 'next/link';
+import {profile} from '@/lib/content';
+export function Header(){return <header><nav className="container"><Link className="brand" href="/">Sohan Kathari<span className="brand-dot">.</span></Link><div className="nav-links"><Link href="/#work">Work</Link><Link href="/#about">About</Link><Link href="/#awards">Awards</Link>{profile.resume&&<a href={profile.resume}>Résumé ↗</a>}</div></nav></header>}
+export function Footer(){return <footer className="container"><div><span className="eyebrow">LET’S CONNECT</span><h2>Get in touch<span className="brand-dot">.</span></h2><a className="email" href={`mailto:${profile.email}`}>{profile.email} ↗</a></div><div><a href={profile.linkedin}>LinkedIn ↗</a>{profile.github&&<a href={profile.github}>GitHub ↗</a>}<p>Sohan Kathari · Carnegie Mellon University</p></div></footer>}

@@ -1,0 +1,6 @@
+node_modules
+.next
+*.tsbuildinfo
+.env*
+# Private source résumé; publish only the redacted public copy.
+Kathari__Sohan_Resume*.pdf

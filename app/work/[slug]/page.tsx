@@ -1,0 +1,8 @@
+import type {Metadata} from 'next';
+import Link from 'next/link';
+import {notFound} from 'next/navigation';
+import {projects} from '@/lib/content';
+import {Visual} from '@/components/Visual';
+export function generateStaticParams(){return projects.map(p=>({slug:p.slug}));}
+export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{const {slug}=await params;const p=projects.find(p=>p.slug===slug);return {title:p?.name,description:p?.summary,openGraph:{title:`${p?.name} | Sohan Kathari`,description:p?.summary},twitter:{card:'summary_large_image',title:p?.name,description:p?.summary}};}
+export default async function Case({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const p=projects.find(p=>p.slug===slug);if(!p)notFound();return <main id="main" className="container case"><Link className="back" href="/#work">← Selected work</Link><div className="case-intro"><p className="eyebrow">ENGINEERING CASE STUDY</p><h1>{p.name}</h1><p className="summary">{p.summary}</p><div className="case-meta"><span>{p.role}</span><span>{p.dates}</span></div></div><Visual project={p}/><div className="case-body"><aside><strong className="metric">{p.metric}</strong><p className="eyebrow">TOOLS & CONCEPTS</p>{p.technologies.map(t=><p key={t}>{t}</p>)}{p.links?.map(l=><p key={l.url}><a href={l.url}>{l.label} ↗</a></p>)}</aside><div><section><h2>Problem</h2><p>{p.problem}</p></section><section><h2>What I built</h2>{p.built.map(t=><p key={t}>{t}</p>)}</section><section><h2>Result</h2><p>{p.result}</p></section><Link className="back" href="/#work">← Back to selected work</Link></div></div></main>}
